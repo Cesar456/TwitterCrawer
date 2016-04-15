@@ -14,7 +14,7 @@ def get_data_from_xls(filepath="data.xls"):
     for s in sheet.col_values(1):
         if s.startswith("@"):
             s = s.replace("@", "")
-            re.append(s)
+            re.append(s.strip())
     return re
 
 

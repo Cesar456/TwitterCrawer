@@ -3,6 +3,7 @@
 import getData
 import twitter
 import saveData
+import time
 
 # 初始化Twitter的用户信息
 api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
@@ -14,7 +15,7 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
 data = getData.get_data_from_xls("C:\Users\Cesar\Desktop\data.xls")
 
 # 定义存储路径
-folder_path = "F:/twitterData/"
+folder_path = "F:/2data/"
 
 
 def main():
@@ -25,16 +26,22 @@ def main():
 def get_statu(screen_name):
     print screen_name + " start crawler"
     statuses = api.GetUserTimeline(screen_name=screen_name, count='200')
-    saveData.sava_status_to_xml(statuses, str(folder_path+screen_name+"/"))
+    saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
     totle = len(statuses)
-    max_id = statuses[totle-1].id
+    if totle == 0:
+        return
+    max_id = statuses[totle - 1].id
     while not totle < 200:
         statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
-        saveData.sava_status_to_xml(statuses, str(folder_path+screen_name+"/"))
+        saveData.sava_status_to_json(statuses, str(folder_path + screen_name + "/"))
         totle = len(statuses)
-        max_id = statuses[totle-1].id
+        if totle == 0:
+            return
+        max_id = statuses[totle - 1].id
         print "..."
-    print screen_name+" complete"
+        time.sleep(5)
+    print screen_name + " complete"
+
 
 if __name__ == '__main__':
     main()
