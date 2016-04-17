@@ -15,7 +15,7 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
 data = getData.get_data_from_xls("C:\Users\Cesar\Desktop\data.xls")
 
 # 定义存储路径
-folder_path = "F:/2data/"
+folder_path = "F:/twitter4/"
 
 
 def main():
@@ -31,9 +31,9 @@ def get_statu(screen_name):
     if totle == 0:
         return
     max_id = statuses[totle - 1].id
-    while not totle < 200:
+    while not totle < 100:
         statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
-        saveData.sava_status_to_json(statuses, str(folder_path + screen_name + "/"))
+        saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
         totle = len(statuses)
         if totle == 0:
             return

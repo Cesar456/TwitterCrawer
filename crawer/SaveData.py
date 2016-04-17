@@ -63,3 +63,55 @@ def sava_status_to_json(status=[], folder_path="F:/twitterData/unknow/"):
     file_re = open(file_path, "w")
     file_re.write(result.encode("utf-8"))
     file_re.close()
+
+
+def sava_user_to_xml(users=[], folder_path="F:/twitterData/unknow/"):
+    """
+    :param status: 用户状态
+    :type folder_path: str
+    传入为该批数据存储的文件夹路径，为绝对路径+twitter用户名的形式
+    """
+
+    if len(users) == 0:
+        print "no data exception"
+        return
+    if not folder_path.endswith("/"):
+        folder_path += "/"
+
+    for u in users:
+        print u
+    dic_re = {}
+    for u in users:
+        json_str = str(u).replace(r"\"", r"\\\"")
+        dic_re[str(u.screen_name)] = json.loads(json_str)
+    result = {"users": dic_re}
+    xml_re = unicode(xmltodict.unparse(result))
+
+    file_path = folder_path + str(time.time()) + ".xml"
+    if not path.exists(folder_path):
+        mkdir(folder_path)
+    file_re = open(file_path, "w")
+    file_re.write(xml_re.encode("utf-8"))
+    file_re.close()
+
+
+def sava_user_id_to_txt(users=[], folder_path="F:/twitterData/unknow/"):
+    """
+    :param status: 用户状态
+    :type folder_path: str
+    传入为该批数据存储的文件夹路径，为绝对路径+twitter用户名的形式
+    """
+
+    if len(users) == 0:
+        print "no data exception"
+        return
+    if not folder_path.endswith("/"):
+        folder_path += "/"
+
+    file_path = folder_path + str(time.time()) + ".txt"
+    if not path.exists(folder_path):
+        mkdir(folder_path)
+    file_re = open(file_path, "w")
+    for u in users:
+        file_re.write(str(u)+"\n")
+    file_re.close()
