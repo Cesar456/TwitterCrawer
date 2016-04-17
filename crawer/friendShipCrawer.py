@@ -31,8 +31,8 @@ def get_following_id():
     for screen_name in data:
         print str(id) + screen_name
         id += 1
+        time.sleep(60)
         followers = api.GetFriendIDs(screen_name=screen_name)
         saveData.sava_user_id_to_txt(users=followers, folder_path=folder_path + "followering_id/" + screen_name + "/")
-        time.sleep(60)
 
 get_following_id()
