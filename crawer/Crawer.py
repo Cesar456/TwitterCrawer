@@ -15,12 +15,20 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
 data = getData.get_id_from_xls("C:\Users\Cesar\Desktop\data.xls")
 
 # 定义存储路径
-folder_path = "F:/twitterData/"
+folder_path = "F:/twitter_new_data/"
+
+err_log = open("F:/err_log.txt", 'a')
+right_log = open("F:/right_log.txt", 'a')
 
 
 def main():
     for per in data:
-        get_status_by_id(per)
+        try:
+            get_status_by_id(per)
+            right_log.writelines(str(per) + '\n')
+        except Exception, e:
+            err_log.writelines(str(per) + '\n')
+            print e
 
 
 def get_status_by_id(user_id):
@@ -29,16 +37,16 @@ def get_status_by_id(user_id):
     saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
     totle = len(statuses)
     if totle == 0:
-        print str(user_id)+'无数据'
+        print str(user_id) + '无数据'
         return
     max_id = statuses[totle - 1].id
     while not totle < 10:
-        time.sleep(2)
+        time.sleep(10)
         statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=max_id)
         saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
         totle = len(statuses)
         if totle == 0:
-            print str(user_id)+'完毕'
+            print str(user_id) + '完毕'
             return
         max_id = statuses[totle - 1].id
         print "..."
