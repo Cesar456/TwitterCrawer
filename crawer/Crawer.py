@@ -12,10 +12,10 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = getData.get_id_from_xls("D:\data.xls")
+data = getData.get_id_from_xls("F:\data.xls")
 
 # 定义存储路径
-folder_path = "F:/twitter_new_data/"
+folder_path = "F:/twitter_data_for_news/"
 
 """
 err_log 记载出错的账户名称
@@ -26,13 +26,11 @@ err_log = open("F:/err_log.txt", 'a')
 right_log = open("F:/right_log.txt", 'a')
 id_log = open("F:/id_log.txt", 'w')
 
-maxID = "000"
-
 
 def main():
     for per in data:
         try:
-            get_status_by_id(per)
+            get_status(per)
             right_log.writelines(str(per) + '\n')
         except Exception, e:
             err_log.writelines(str(per) + '\n')
@@ -41,7 +39,7 @@ def main():
 
 def get_status_by_id(user_id):
     print str(user_id) + " start crawler"
-    statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=maxID)
+    statuses = api.GetUserTimeline(user_id=user_id, count='200')
     saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
     totle = len(statuses)
     if totle == 0:
@@ -68,17 +66,20 @@ def get_status(screen_name):
     saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
     totle = len(statuses)
     if totle == 0:
+        print str(screen_name) + '无数据'
         return
     max_id = statuses[totle - 1].id
-    while not totle < 100:
+    while not totle < 10:
+        id_log.writelines(str(max_id))
+        time.sleep(10)
         statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
         saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
         totle = len(statuses)
         if totle == 0:
+            print str(screen_name) + '完毕'
             return
         max_id = statuses[totle - 1].id
         print "..."
-        time.sleep(5)
     print screen_name + " complete"
 
 

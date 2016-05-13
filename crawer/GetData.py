@@ -24,8 +24,7 @@ def get_id_from_xls(file_path="data.xls"):
     sheet = data.sheets()[0]
     re = []
     for s in sheet.col_values(1):
-        if type(s) is types.FloatType:
-            re.append(int(s))
+            re.append(s)
     return re
 
 
