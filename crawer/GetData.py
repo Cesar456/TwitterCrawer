@@ -15,7 +15,7 @@ def get_data_from_xls(file_path="data.xls"):
     for s in sheet.col_values(1):
         if str(s).startswith("@"):
             s = str(s).replace("@", "")
-            re.append(float(str(s).strip()))
+            re.append(str(s).strip())
     return re
 
 
@@ -24,7 +24,7 @@ def get_id_from_xls(file_path="data.xls"):
     sheet = data.sheets()[0]
     re = []
     for s in sheet.col_values(1):
-            re.append(s)
+            re.append(float(s))
     return re
 
 

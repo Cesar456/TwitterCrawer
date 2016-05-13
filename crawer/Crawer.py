@@ -1,6 +1,6 @@
 # encoding=utf-8
 
-import getData
+import GetData
 import twitter
 import saveData
 import time
@@ -12,7 +12,7 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = getData.get_id_from_xls("F:\data.xls")
+data = GetData.get_data_from_xls("F:\data.xls")
 
 # 定义存储路径
 folder_path = "F:/twitter_data_for_news/"
@@ -26,11 +26,15 @@ err_log = open("F:/err_log.txt", 'a')
 right_log = open("F:/right_log.txt", 'a')
 id_log = open("F:/id_log.txt", 'w')
 
+maxID = 999999999999999999
+
 
 def main():
     for per in data:
         try:
             get_status(per)
+            global maxID
+            maxID = 999999999999999999
             right_log.writelines(str(per) + '\n')
         except Exception, e:
             err_log.writelines(str(per) + '\n')
@@ -39,7 +43,7 @@ def main():
 
 def get_status_by_id(user_id):
     print str(user_id) + " start crawler"
-    statuses = api.GetUserTimeline(user_id=user_id, count='200')
+    statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=maxID)
     saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
     totle = len(statuses)
     if totle == 0:
@@ -47,7 +51,8 @@ def get_status_by_id(user_id):
         return
     max_id = statuses[totle - 1].id
     while not totle < 10:
-        id_log.writelines(str(max_id))
+        id_log.writelines(str(max_id) + "\n")
+        id_log.flush()
         time.sleep(10)
         statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=max_id)
         saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
@@ -62,7 +67,7 @@ def get_status_by_id(user_id):
 
 def get_status(screen_name):
     print screen_name + " start crawler"
-    statuses = api.GetUserTimeline(screen_name=screen_name, count='200')
+    statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=maxID)
     saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
     totle = len(statuses)
     if totle == 0:
@@ -70,7 +75,8 @@ def get_status(screen_name):
         return
     max_id = statuses[totle - 1].id
     while not totle < 10:
-        id_log.writelines(str(max_id))
+        id_log.writelines(str(max_id) + "\n")
+        id_log.flush()
         time.sleep(10)
         statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
         saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
