@@ -12,7 +12,7 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = getData.get_data_from_xls("C:\Users\Cesar\Desktop\data.xls")
+data = getData.get_data_from_xls("F:\data.xls")
 # 用户数据存储文件夹
 folder_path = "F:/user/"
 

@@ -12,13 +12,21 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = getData.get_id_from_xls("C:\Users\Cesar\Desktop\data.xls")
+data = getData.get_id_from_xls("D:\data.xls")
 
 # 定义存储路径
 folder_path = "F:/twitter_new_data/"
 
+"""
+err_log 记载出错的账户名称
+right_log记载正确账户名称
+id_log 记载截至程序停止为止当前最大ID，启动程序时需要更新
+"""
 err_log = open("F:/err_log.txt", 'a')
 right_log = open("F:/right_log.txt", 'a')
+id_log = open("F:/id_log.txt", 'w')
+
+maxID = "000"
 
 
 def main():
@@ -33,7 +41,7 @@ def main():
 
 def get_status_by_id(user_id):
     print str(user_id) + " start crawler"
-    statuses = api.GetUserTimeline(user_id=user_id, count='200')
+    statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=maxID)
     saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
     totle = len(statuses)
     if totle == 0:
@@ -41,6 +49,7 @@ def get_status_by_id(user_id):
         return
     max_id = statuses[totle - 1].id
     while not totle < 10:
+        id_log.writelines(str(max_id))
         time.sleep(10)
         statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=max_id)
         saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
