@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="CompilerConfiguration">
     <resourceExtensions />
     <wildcardResourcePatterns>
@@ -53,4 +54,7 @@
       </state>
     </states>
   </component>
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7.11 (C:\Python27\python.exe)" project-jdk-type="Python SDK" />
+>>>>>>> ba0c31dd74381f8e567832c5ef04bac68953fae9
 </project>
