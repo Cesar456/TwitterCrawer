@@ -2,7 +2,7 @@
 
 import GetData
 import twitter
-import saveData
+import SaveData
 import time
 
 # 初始化Twitter的用户信息
@@ -44,7 +44,7 @@ def main():
 def get_status_by_id(user_id):
     print str(user_id) + " start crawler"
     statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=maxID)
-    saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
+    SaveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
     totle = len(statuses)
     if totle == 0:
         print str(user_id) + '无数据'
@@ -55,7 +55,7 @@ def get_status_by_id(user_id):
         id_log.flush()
         time.sleep(10)
         statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=max_id)
-        saveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
+        SaveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
         totle = len(statuses)
         if totle == 0:
             print str(user_id) + '完毕'
@@ -68,7 +68,7 @@ def get_status_by_id(user_id):
 def get_status(screen_name):
     print screen_name + " start crawler"
     statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=maxID)
-    saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
+    SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
     totle = len(statuses)
     if totle == 0:
         print str(screen_name) + '无数据'
@@ -79,7 +79,7 @@ def get_status(screen_name):
         id_log.flush()
         time.sleep(10)
         statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
-        saveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
+        SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
         totle = len(statuses)
         if totle == 0:
             print str(screen_name) + '完毕'
