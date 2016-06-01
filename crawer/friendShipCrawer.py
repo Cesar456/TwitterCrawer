@@ -23,19 +23,23 @@ def get_following():
         followers = api.GetFriends(screen_name=screen_name)
         print len(followers)
         SaveData.sava_user_to_xml(users=followers, folder_path=folder_path + "followering/" + screen_name + "/")
-        time.sleep(120)
+        time.sleep(60)
 
 
 def get_following_id():
     id_ = 1
     for uid in data:
-        print "序号：" + str(id_) + "  userID：" + str(uid)
-        id_ += 1
-        followers = api.GetFriendIDs(user_id=uid)
-        print "用户数据获取成功正在存储"
-        SaveData.sava_user_id_to_txt(users=followers, folder_path=folder_path + str(uid) + "/")
-        print "用户数据已存储"
-        time.sleep(100)
+        try:
+            print "序号：" + str(id_) + "  userID：" + str(uid)
+            id_ += 1
+            followers = api.GetFriendIDs(user_id=uid)
+            print "用户数据获取成功正在存储"
+            SaveData.sava_user_id_to_txt(users=followers, folder_path=folder_path + str(uid) + "/")
+            print "用户数据已存储"
+            time.sleep(100)
+        except Exception, e:
+            print e
+            print str(uid) + "  无法获得"
 
 
 if __name__ == '__main__':
