@@ -24,7 +24,7 @@ def get_id_from_xls(file_path="data.xls"):
     sheet = data.sheets()[0]
     re = []
     for s in sheet.col_values(1):
-            re.append(float(s))
+            re.append(int(s))
     return re
 
 
