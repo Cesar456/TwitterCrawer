@@ -113,5 +113,5 @@ def sava_user_id_to_txt(users=[], folder_path="F:/twitterData/unknow/"):
         mkdir(folder_path)
     file_re = open(file_path, "w")
     for u in users:
-        file_re.write(str(u)+"\n")
+        file_re.write(str(u) + "\n")
     file_re.close()

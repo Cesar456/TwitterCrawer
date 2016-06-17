@@ -12,10 +12,10 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = GetData.get_data_from_xls("F:\data.xls")
+data = GetData.get_data_from_xls("F:\data52.xls")
 
 # 定义存储路径
-folder_path = "F:/twitter_data_for_news/"
+folder_path = "F:/twitter_52/"
 
 """
 err_log 记载出错的账户名称
