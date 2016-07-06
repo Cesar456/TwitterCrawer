@@ -12,10 +12,10 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = GetData.get_data_from_xls("F:\data52.xls")
+data = GetData.get_data_from_xls("F:/data-0624.xls")
 
 # 定义存储路径
-folder_path = "F:/twitter_52/"
+folder_path = "F:/data-0624/"
 
 """
 err_log 记载出错的账户名称
@@ -26,33 +26,25 @@ err_log = open("F:/err_log.txt", 'a')
 right_log = open("F:/right_log.txt", 'a')
 id_log = open("F:/id_log.txt", 'w')
 
-maxID = 999999999999999999
-
 
 def main():
     for per in data:
         try:
-            get_status(per)
-            global maxID
-            maxID = 999999999999999999
-            right_log.writelines(str(per) + '\n')
+            get_status_of_recent(per)
         except Exception, e:
-            err_log.writelines(str(per) + '\n')
             print e
 
 
 def get_status_by_id(user_id):
     print str(user_id) + " start crawler"
-    statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=maxID)
-    SaveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
+    statuses = api.GetUserTimeline(user_id=user_id, count='200')
     totle = len(statuses)
     if totle == 0:
         print str(user_id) + '无数据'
         return
+    SaveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
     max_id = statuses[totle - 1].id
     while not totle < 10:
-        id_log.writelines(str(max_id) + "\n")
-        id_log.flush()
         time.sleep(10)
         statuses = api.GetUserTimeline(user_id=user_id, count='200', max_id=max_id)
         SaveData.sava_status_to_xml(statuses, str(folder_path + str(user_id) + "/"))
@@ -66,28 +58,48 @@ def get_status_by_id(user_id):
 
 
 def get_status(screen_name):
-    print screen_name + " start crawler"
-    statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=maxID)
-    SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
+    print screen_name + "  start crawler"
+    statuses = api.GetUserTimeline(screen_name=screen_name, count='200')
     totle = len(statuses)
     if totle == 0:
-        print str(screen_name) + '无数据'
+        print screen_name + '  无数据'
         return
+    SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
     max_id = statuses[totle - 1].id
     while not totle < 10:
-        id_log.writelines(str(max_id) + "\n")
-        id_log.flush()
         time.sleep(10)
         statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
         SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
         totle = len(statuses)
         if totle == 0:
-            print str(screen_name) + '完毕'
+            print screen_name + '  完毕'
             return
         max_id = statuses[totle - 1].id
         print "..."
     print screen_name + " complete"
 
+
+def get_status_of_recent(screen_name):
+    print screen_name + "  start crawler"
+    statuses = api.GetUserTimeline(screen_name=screen_name, count='200')
+    totle = len(statuses)
+    if totle == 0:
+        print screen_name + '  无数据'
+        return
+    SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
+    max_id = statuses[totle - 1].id
+    while not totle < 10:
+        time.sleep(10)
+        statuses = api.GetUserTimeline(screen_name=screen_name, count='200', max_id=max_id)
+        SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
+        totle = len(statuses)
+        if totle == 0:
+            print screen_name + '  完毕'
+            return
+        max_id = statuses[totle - 1].id
+        print "..."
+        break
+    print screen_name + " complete"
 
 if __name__ == '__main__':
     main()
