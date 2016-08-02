@@ -10,10 +10,26 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = GetData.get_data_from_xls("F:\\data-0624.xls")
+data = GetData.get_id_from_xls("E:\\follow.xls")
 
 # 定义存储路径
 folder_path = ""
+
+
+def follow_by_id():
+    i = 0
+    for a in data:
+        for ti in xrange(5):
+            try:
+                api.CreateFriendship(user_id=a, follow=True)
+                print str(i) + "  " + str(a) + "已经关注"
+                time.sleep(10)
+                break
+            except Exception, e:
+                print e
+                print str(i) + "  " + str(a) + "关注失败"
+                time.sleep(10)
+        i += 1
 
 
 # 根据配置文件中的内容
@@ -33,5 +49,5 @@ def follow():
 
 
 if __name__ == '__main__':
-    follow()
+    follow_by_id()
     pass

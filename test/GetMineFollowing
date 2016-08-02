@@ -1,0 +1,26 @@
+# encoding=utf-8
+import twitter
+
+# 初始化Twitter的用户信息
+api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
+                  consumer_secret='lKnVGbM4V8fTwwBjy7uVwo1IyQBpgUBzB0r9R6wAvUmGaNdBwe',
+                  access_token_key='720077099688706048-KYyr0iV9aF5vsBl0yQGrjLB8sXBizmr',
+                  access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
+
+file_path = "./user.txt"
+
+
+def get_following():
+    file1 = open(file_path,'a')
+
+    print "start"
+    re = api.GetFriendIDs(user_id="@SHUFE8666")
+    print "目前关注总人数为：" + str(len(re))
+    for x in re:
+        file1.write(str(x)+"\n")
+    file1.close()
+    print "end"
+
+
+if __name__ == "__main__":
+    get_following()
