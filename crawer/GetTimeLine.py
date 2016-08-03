@@ -48,5 +48,5 @@ def get_time_line():
         SaveData.sava_status_to_xml(statuses, str(folder_path + "/"))
 
 
-if __name__ == '__main__ ':
+if __name__ == '__main__':
     get_time_line()
