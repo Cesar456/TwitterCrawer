@@ -26,6 +26,16 @@ def follow_by_id():
         except Exception, e:
             print e
             print str(i) + "  " + str(a) + "关注失败"
+        # for ti in xrange(5):
+        #     try:
+        #         api.CreateFriendship(user_id=a, follow=True)
+        #         print str(i) + "  " + str(a) + "已经关注"
+        #         time.sleep(10)
+        #         break
+        #     except Exception, e:
+        #         print e
+        #         print str(i) + "  " + str(a) + "关注失败"
+        #         time.sleep(10)
         i += 1
 
 

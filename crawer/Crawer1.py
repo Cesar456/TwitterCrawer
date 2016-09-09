@@ -21,7 +21,7 @@ folder_path = "F:\\6000\\6000\\6000-0901\\"
 def main():
     for per in data:
         try:
-            get_status(per)
+            get_status_by_id(per)
         except Exception, e:
             print e
 
@@ -40,6 +40,22 @@ def get_status(screen_name):
         SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
     time.sleep(10)
     print screen_name + " complete"
+
+
+def get_status_by_id(id_):
+    print str(id_) + " start crawler"
+    statuses = api.GetUserTimeline(user_id=id_, count=200)
+    SaveData.sava_status_to_xml(statuses, str(folder_path + str(id_) + "/"))
+    totle = len(statuses)
+    if totle < 100:
+        pass
+    else:
+        print "..."
+        max_id = statuses[totle - 1].id
+        statuses = api.GetUserTimeline(user_id=id_, count=200, max_id=max_id)
+        SaveData.sava_status_to_xml(statuses, str(folder_path + str(id_) + "/"))
+    time.sleep(10)
+    print str(id_) + " complete"
 
 
 if __name__ == '__main__':
