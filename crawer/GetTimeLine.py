@@ -6,10 +6,10 @@ import time
 api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   consumer_secret='lKnVGbM4V8fTwwBjy7uVwo1IyQBpgUBzB0r9R6wAvUmGaNdBwe',
                   access_token_key='720077099688706048-KYyr0iV9aF5vsBl0yQGrjLB8sXBizmr',
-                  access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
+                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 定义存储路径
-folder_path = "F:/twitter_mine/"
+folder_path = "F:\\0722\\timeline"
 
 status = []
 
@@ -34,8 +34,8 @@ def get_time_line():
             new_statues = api.GetHomeTimeline(count=200, since_id=since_id)
             print "本次共刷出" + str(len(new_statues)) + "条微博"
             if len(new_statues) < 30:
-                print "刷出微博过少，休息十分钟"
-                time.sleep(600)
+                print "刷出微博过少，休息 五分钟"
+                time.sleep(300)
             if not len(new_statues) > 0:
                 continue
             since_id = new_statues[0].id

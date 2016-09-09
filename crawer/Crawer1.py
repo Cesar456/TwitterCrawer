@@ -12,10 +12,10 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = GetData.get_data_from_xls("F:\data52.xls")
+data = GetData.get_data_from_xls("F:\\6000\\6000\\6000.xls")
 
 # 定义存储路径
-folder_path = "F:/twitter_52/"
+folder_path = "F:\\6000\\6000\\6000-0901\\"
 
 
 def main():
@@ -38,7 +38,7 @@ def get_status(screen_name):
         max_id = statuses[totle - 1].id
         statuses = api.GetUserTimeline(screen_name=screen_name, count=200, max_id=max_id)
         SaveData.sava_status_to_xml(statuses, str(folder_path + screen_name + "/"))
-    time.sleep(20)
+    time.sleep(10)
     print screen_name + " complete"
 
 

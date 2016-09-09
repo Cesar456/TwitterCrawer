@@ -1,4 +1,4 @@
-# encoding=utf-8
+#encoding=utf-8
 
 import GetData
 import twitter
@@ -12,10 +12,10 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = GetData.get_data_from_xls("F:/data-0624.xls")
+data = GetData.get_data_from_xls("F:\\0901\\400.xls")
 
 # 定义存储路径
-folder_path = "F:/data-0624/"
+folder_path = "F:\\0901\\400\\"
 
 """
 err_log 记载出错的账户名称
@@ -30,7 +30,7 @@ id_log = open("F:/id_log.txt", 'w')
 def main():
     for per in data:
         try:
-            get_status_of_recent(per)
+            get_status(per)
         except Exception, e:
             print e
 

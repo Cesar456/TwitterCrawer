@@ -21,12 +21,34 @@ def get_data_from_xls(file_path="data.xls"):
     return re
 
 
+def get_data_from_xls_sheet(file_path="data.xls",sheets = 0):
+    data = xlrd.open_workbook(file_path)
+    sheet = data.sheets()[sheets]
+    re = []
+    for s in sheet.col_values(1):
+        if str(s).startswith("@"):
+            s = str(s).replace("@", "")
+            re.append(str(s).strip())
+        else:
+            re.append(str(s).strip())
+    return re
+
+
 def get_id_from_xls(file_path="data.xls"):
     data = xlrd.open_workbook(file_path)
     sheet = data.sheets()[0]
     re = []
     for s in sheet.col_values(1):
             re.append(int(s))
+    return re
+
+
+def get_id_from_xls_sheet(file_path="data.xls", sheets=0):
+    data = xlrd.open_workbook(file_path)
+    sheet = data.sheets()[sheets]
+    re = []
+    for s in sheet.col_values(1):
+        re.append(int(s))
     return re
 
 
