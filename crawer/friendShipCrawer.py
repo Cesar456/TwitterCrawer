@@ -12,9 +12,9 @@ api = twitter.Api(consumer_key='EKEMZjnkpUu7p8CbICyFKnUfD',
                   access_token_secret='D7kbKR9N1rHdYmtnUa6CdPs9qt1gNy8rEsdAIFBoC4Rhu')
 
 # 获取需要爬取的用户数据，元组或列表
-data = GetData.get_data_from_xls("F:\data52.xls")
+data = GetData.get_data_from_xls("H:\\TWITTER\\IOT.xls")
 # 用户数据存储文件夹
-folder_path = "F:/twitter-52-follower/"
+folder_path = "H:\\TWITTER\\friendship\\"
 
 
 def get_following():
@@ -36,7 +36,7 @@ def get_following_id_by_name():
             print "用户数据获取成功正在存储"
             SaveData.sava_user_id_to_txt(users=followers, folder_path=folder_path + str(screen_name) + "/")
             print "用户数据已存储"
-            time.sleep(100)
+            time.sleep(200)
         except Exception, e:
             print e
             print str(screen_name) + "  无法获得"
